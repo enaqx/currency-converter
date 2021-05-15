@@ -1,0 +1,42 @@
+.loading {
+  display: inline-block;
+  position: relative;
+  width: 5rem;
+  height: 1rem;
+}
+
+.loading div {
+  display: inline-block;
+  position: absolute;
+  left: 0.5rem;
+  width: 1rem;
+  background: #0074d9;
+  animation: loading 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+
+.loading div:nth-child(1) {
+  left: 1rem;
+  animation-delay: -0.2s;
+}
+
+.loading div:nth-child(2) {
+  left: 2.5rem;
+  animation-delay: -0.1s;
+}
+
+.loading div:nth-child(3) {
+  left: 4rem;
+  animation-delay: 0;
+}
+
+@keyframes loading {
+  0% {
+    top: 0.5rem;
+    height: 4rem;
+  }
+  50%,
+  100% {
+    top: 1.5rem;
+    height: 2rem;
+  }
+}
