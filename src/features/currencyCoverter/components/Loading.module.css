@@ -10,7 +10,7 @@
   position: absolute;
   left: 0.5rem;
   width: 1rem;
-  background: #0074d9;
+  background: #505050;
   animation: loading 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
 }
 

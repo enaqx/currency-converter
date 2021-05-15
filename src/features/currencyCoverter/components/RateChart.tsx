@@ -146,7 +146,7 @@ const LineChart = ({
       {numberOfVerticalGuides && <VerticalGuides />}
       <HorizontalGuides />
 
-      <polyline fill="none" stroke="#0074d9" strokeWidth={2} points={points} />
+      <polyline fill="none" stroke="#3a3a3a" strokeWidth={2} points={points} />
     </svg>
   )
 }

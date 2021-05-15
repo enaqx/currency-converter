@@ -1,16 +1,24 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
-const initialState = {
+interface CurrencyConverterState {
+  baseCurrency: string
+  targetCurrency: string
+  status: string
+  exchangeRate: number
+  rates: { x: number; y: number }[]
+  currentBaseAmount: number
+  currentTargetAmount: string
+}
+
+const initialState: CurrencyConverterState = {
   baseCurrency: 'USD',
   targetCurrency: 'JPY',
   status: 'idle',
   exchangeRate: 0,
   rates: [],
   currentBaseAmount: 0,
-  currentTargetAmount: 0,
+  currentTargetAmount: '0',
 }
-
-const API_URL = `https://www.alphavantage.co/`
 
 type FetchExchangeRateParams = {
   baseCurrency: string
@@ -20,6 +28,7 @@ type FetchExchangeRateParams = {
 export const fetchExchangeRate = createAsyncThunk(
   'currencyConverter/fetchExchangeRate',
   async ({ baseCurrency, targetCurrency }: FetchExchangeRateParams) => {
+    const API_URL = `https://www.alphavantage.co/`
     const FUNCTION_NAME = 'CURRENCY_EXCHANGE_RATE'
     const FROM_CURRENCY = baseCurrency
     const TO_CURRENCY = targetCurrency
@@ -66,7 +75,9 @@ const currencyConverterSlice = createSlice({
       state.currentBaseAmount = action.payload
     },
     recalculate(state) {
-      state.currentTargetAmount = state.currentBaseAmount * state.exchangeRate
+      state.currentTargetAmount = (
+        state.currentBaseAmount * state.exchangeRate
+      ).toFixed(2)
     },
   },
   extraReducers: (builder) => {
@@ -76,7 +87,6 @@ const currencyConverterSlice = createSlice({
       })
       .addCase(fetchExchangeRate.fulfilled, (state, action) => {
         state.exchangeRate = action.payload.exchangeRate
-        // @ts-ignore
         state.rates = action.payload.rates
         state.status = 'fullfilled'
       })

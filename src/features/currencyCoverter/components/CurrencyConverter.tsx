@@ -1,4 +1,5 @@
 import CurrencySelect from './CurrencySelect'
+import styles from './CurrencyConverter.module.css'
 
 type CurrencyProps = {
   changeBaseCurrency: (
@@ -28,28 +29,41 @@ const Currency = ({
   currencies,
 }: CurrencyProps) => (
   <div>
-    <CurrencySelect
-      label="Base"
-      changeCurrency={changeBaseCurrency}
-      currentValue={selectedCurrency.baseCurrency}
-      currencies={currencies}
-    />
-    <CurrencySelect
-      label="Target"
-      changeCurrency={changeTargetCurrency}
-      currentValue={selectedCurrency.targetCurrency}
-      currencies={currencies}
-    />
-    <input
-      onChange={amountChange}
-      id="base"
-      name="base"
-      type="number"
-      step="0.01"
-      required
-    />
+    <div className={styles.container}>
+      <div className={styles.selector}>
+        <CurrencySelect
+          label="Base"
+          changeCurrency={changeBaseCurrency}
+          currentValue={selectedCurrency.baseCurrency}
+          currencies={currencies}
+        />
+      </div>
 
-    {amount.targetAmount > 0 && <div>result: {amount.targetAmount}</div>}
+      <div className={styles.inputContainer}>
+        <input
+          className={styles.input}
+          onChange={amountChange}
+          id="base"
+          name="base"
+          type="number"
+          step="0.01"
+          required
+        />
+      </div>
+    </div>
+    <div className={styles.container}>
+      <div className={styles.selector}>
+        <CurrencySelect
+          label="Target"
+          changeCurrency={changeTargetCurrency}
+          currentValue={selectedCurrency.targetCurrency}
+          currencies={currencies}
+        />
+      </div>
+      {amount.targetAmount > 0 && (
+        <div className={styles.targetResult}>{amount.targetAmount}</div>
+      )}
+    </div>
   </div>
 )
 

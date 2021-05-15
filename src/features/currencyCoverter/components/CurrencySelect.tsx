@@ -1,3 +1,5 @@
+import styles from './CurrencySelect.module.css'
+
 type CurrencySelectProps = {
   label: string
   currentValue: string
@@ -12,8 +14,11 @@ const CurrencySelect = ({
   currencies,
 }: CurrencySelectProps) => (
   <div>
-    <label>{label}</label>
-    <select onChange={changeCurrency} value={currentValue}>
+    <select
+      className={styles.currencySelector}
+      onChange={changeCurrency}
+      value={currentValue}
+    >
       {currencies.map((currency) => (
         <option key={currency} value={currency}>
           {currency}
